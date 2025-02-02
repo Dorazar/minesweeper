@@ -1,5 +1,5 @@
 body {
-  background-image: url('../jpg/minesweeper1.png');
+  background-image: url('../jpg/minesweeperdark.png');
   text-align: center;
   color: lightgray;
   font-family: 'Comic Neue', sans-serif;
@@ -166,7 +166,7 @@ footer {
 
 .lightmodebackground {
   color: purple;
-  background-image: url('https://dorazar.github.io/test/jpg/minesweeper2.png');
+  background-image: url('../jpg/minesweeperlight.png');
   /* background-color: grey; */
   background-size: cover;
   background-repeat: no-repeat;
