@@ -1,12 +1,5 @@
-html,
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background-image: url('https://dorazar.github.io/test/jpg/minesweeper1.png');
+  background-image: url('../jpg/minesweeper1.png');
   text-align: center;
   color: lightgray;
   font-family: 'Comic Neue', sans-serif;
