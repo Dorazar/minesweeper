@@ -1,13 +1,12 @@
 body {
-  background-image: url('jpg\minesweeper1.png');
+  background-image: url('../jpg/minesweeper1.png');
   text-align: center;
   color: lightgray;
   font-family: 'Comic Neue', sans-serif;
-  font-size: 20px;
+  font-size: 20px; /* טקסט בסיסי גדול יותר */
   font-weight: 700;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
 }
 
 h1 {
@@ -146,9 +145,9 @@ footer {
 }
 
 .lightmode {
-  position: fixed;
-  top: 20px;
-  left: 600px;
+  position: fixed; /* מיקום קבוע בדפדפן */
+  top: 20px; /* מרחק מהחלק העליון */
+  left: 20px; /* מרחק מהחלק השמאלי */
   font-size: 14px;
   padding: 8px 10px;
   background-color: white;
@@ -166,7 +165,7 @@ footer {
 
 .lightmodebackground {
   color: purple;
-  background-image: url(../jpg/minesweeperlight.png);
+  background-image: url('../jpg/minesweeper2.png');
   /* background-color: grey; */
   background-size: cover;
   background-repeat: no-repeat;
