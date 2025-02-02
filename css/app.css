@@ -1,12 +1,13 @@
 body {
-  background-image: url('/jpg/minesweeper1.png');
+  background-image: url('../jpg/minesweeperdark.png');
   text-align: center;
   color: lightgray;
   font-family: 'Comic Neue', sans-serif;
-  font-size: 20px; /* טקסט בסיסי גדול יותר */
+  font-size: 20px;
   font-weight: 700;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 h1 {
@@ -165,7 +166,7 @@ footer {
 
 .lightmodebackground {
   color: purple;
-  background-image: url('/jpg/minesweeper2.png');
+  background-image: url('../jpg/minesweeperlight.png');
   /* background-color: grey; */
   background-size: cover;
   background-repeat: no-repeat;
