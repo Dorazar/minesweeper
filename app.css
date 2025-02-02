@@ -1,5 +1,5 @@
 body {
-  background-image: url(jpg\minesweeper1.png);
+  background-image: url('jpg\minesweeper1.png');
   text-align: center;
   color: lightgray;
   font-family: 'Comic Neue', sans-serif;
