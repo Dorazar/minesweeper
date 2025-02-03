@@ -6,7 +6,7 @@ const LIVES = '🛟'
 
 var gEmptyCells
 var gLeftLives
-
+var gfindSafeClickCells
 var gCellRecursion = []
 
 var gStartTime
@@ -17,7 +17,7 @@ var gHints
 var hintIsOn = false
 var gExterminator
 
-var gSafeLocations = []
+var gSafeLocations
 var gMaxSafeLocations
 
 var gLevel = {
@@ -56,12 +56,6 @@ function buildBoard() {
       }
     }
   }
-  // board[0][1].isMine = true
-  // board[1][1].isMine = true
-  // מקום רנדומלי למוקשים
-  // putMinesOnRandEmptyLocations(board)
-  // עדכון לולאת שכנים בהתאם למיקום המוקשים
-  // updateMinesNegCount(board)
   return board
 }
 
@@ -73,7 +67,7 @@ function onCellClicked(elCell, i, j) {
   // gBoard[0][1].isMine = true
   // gBoard[1][1].isMine = true
 
-  // מה שקורה בהתחלה
+  // what happend on the first press
   if (!gGame.isOn) {
     startStopwatch()
     putMinesOnRandEmptyLocations(gBoard)
@@ -82,11 +76,11 @@ function onCellClicked(elCell, i, j) {
     // if (gBoard[i][j].minesAroundCount === 0) {
     //   console.log(elCell)
     // }
-    // אם בלחיצה הראשונה פגשתי במוקש, תזוז
+    // if at the 1st press it mine, find another empty place for the min
     if (gBoard[i][j].isMine) {
       gBoard[i][j].isMine = false
       // console.log(`it was a bomb! at first click ${i},${j}`)
-      // שינוי מיקום של הפצצה
+      // change mine location
       var newMineIdx = getRandomIntInclusive(0, gEmptyCells.length - 1)
       var newMineLocation = gEmptyCells[newMineIdx]
       // console.log(`the bomb move to ${newMineLocation.i},${newMineLocation.j}`)
@@ -183,7 +177,7 @@ function expandUncover(board, elCell, i, j) {
   }
 }
 
-/// === אלגוריתם רנדומלי למציאת מקום לריק למוקש ====
+/// === random algorithem to find empty cell for mine ====
 
 function findEmptyCell(board) {
   gEmptyCells = []
@@ -232,7 +226,7 @@ function setMinesNegsCount(pos, board) {
   return neighs
 }
 
-// מעדכנת את מספר המוקשים
+// update the num of mines on the board
 function updateMinesNegCount(board) {
   for (var i = 0; i < board.length; i++) {
     for (var j = 0; j < board[i].length; j++) {
@@ -282,8 +276,8 @@ function onRestart() {
   onInit()
 }
 
+// we press on the last mine, all mines shows
 function markAllmines() {
-  // אם לחצנו על מוקש, כל המוקשים נגלים
   var minesLocation = []
   for (var i = 0; i < gBoard.length; i++) {
     for (var j = 0; j < gBoard[i].length; j++) {
@@ -303,6 +297,7 @@ function markAllmines() {
   }
   var elSmiley = document.querySelector('.smiley')
   elSmiley.innerHTML = '🤯'
+  gGame.isOn = false
   stopStopwatch()
 }
 
@@ -310,7 +305,7 @@ function onCellMarked(ev) {
   if (isVictory()) return
   console.log('hi:')
   if (ev.button === 2) {
-    ev.preventDefault() // מניעת תפריט ההקשר של הדפדפן
+    ev.preventDefault() //
 
     var classNameCell = '.' + ev.srcElement.classList[1]
     var elCell = document.querySelector(classNameCell)
@@ -348,8 +343,6 @@ function onCellMarked(ev) {
   }
   isVictory()
 }
-
-// לתקן מספר מוקשים
 
 function onDiffchose(elBtn) {
   console.log('elBtn.innerHTML:', elBtn.innerHTML)
@@ -420,13 +413,12 @@ function markedCount() {
   var elCell = document.querySelector('.numsgame .markedcount')
   elCell.innerHTML = gGame.markedCount
 }
-// לאפס כאשר ריסטרט
 
 //Bonuses!
 
 //bonus: hints
 
-// וגם הוספתי פונקציה ברינדור - לא לשכוח
+// added the function on the render
 function onHintClick(el) {
   if (!gGame.isOn) return
   el.innerHTML = '💡'
@@ -434,7 +426,6 @@ function onHintClick(el) {
   // expandUncover(gBoard, el, i, j)
   // if ((el.innerHTML = '💡')) return
 }
-// להמשיך מכאן לעשות את הרמזים
 function onCellClickedHint(i, j) {
   if (!hintIsOn || gHints === 0 || gBoard[i][j].isShow) return
   if (hintIsOn) {
@@ -505,6 +496,7 @@ function resetHints() {
 //bonus: safeClick
 
 function safeClick() {
+  gSafeLocations = []
   if (!gGame.isOn) return
   for (let i = 0; i < gBoard.length; i++) {
     for (let j = 0; j < gBoard[i].length; j++) {
@@ -513,6 +505,8 @@ function safeClick() {
       gSafeLocations.push({ i, j })
     }
   }
+  if (gSafeLocations.length === 0) return
+  console.log(gSafeLocations)
   var randIdx = getRandomIntInclusive(0, gSafeLocations.length - 1)
   var randCell = gSafeLocations[randIdx]
   console.log('randCell:', randCell)
@@ -521,7 +515,7 @@ function safeClick() {
   var className = '.' + getClassName(randCell)
   var elCell = document.querySelector(className)
   elCell.classList.add('clickedonsafeclick')
-  setInterval(() => {
+  setTimeout(() => {
     gBoard[randCell.i][randCell.j].isShow = false
     renderCell(randCell, gBoard[randCell.i][randCell.j].minesAroundCount)
     var className = '.' + getClassName(randCell)
@@ -578,7 +572,7 @@ function countMines() {
   elMine.innerHTML = countMines
 }
 
-// לבדוק מכאן על mine exterminator
+// check from here on MineExterminator
 
 function getMineLocation() {
   if (gLevel.SIZE >= 12) {
