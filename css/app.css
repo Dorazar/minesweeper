@@ -13,6 +13,7 @@ body {
 h1 {
   font-weight: bold; /* הופך את הכותרת לעבה יותר */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* מוסיף צל לכותרת */
+  margin-bottom: 0px;
 }
 
 table {
@@ -132,24 +133,24 @@ footer {
   margin-left: 170px;
 }
 
-.safeclick span.islandicon {
-  font-size: 24px;
-}
-
 .safeclick {
   font-size: 18px;
-  padding: 5px;
+  margin: 10px;
+  padding: 8px 12px;
   cursor: pointer;
+  background-color: white;
+  color: black;
   border-radius: 5px;
-  border-color: transparent;
-  margin-right: 33px;
+  border: 2px solid black;
+  transition: 0.3s;
 }
 
 .lightmode {
-  position: fixed; /* מיקום קבוע בדפדפן */
-  top: 20px; /* מרחק מהחלק העליון */
-  left: 20px; /* מרחק מהחלק השמאלי */
-  font-size: 14px;
+  position: relative;
+  /* position: absolute; מיקום קבוע בדפדפן */
+  /* top: 20px; מרחק מהחלק העליון */
+  /* right: 180px; מרחק מהחלק השמאלי */
+  font-size: 15px;
   padding: 8px 10px;
   background-color: white;
   color: black;
@@ -217,12 +218,6 @@ button:hover {
   margin-top: -31px;
 }
 
-.mineexterminatorjpg {
-  width: 100px;
-  height: auto;
-  image-rendering: crisp-edges; /* שומר על שקיפות וניקיון */
-  background-color: transparent;
-}
 .mineexterminatorjpg:hover {
   background-color: transparent;
 }
@@ -242,6 +237,48 @@ img {
 }
 
 .safeclickbtn:hover {
+  background-color: black;
+  color: white;
+}
+
+.hint-container,
+.safeclick-container,
+.mineexterminator-container {
+  display: inline-block; /* מאפשר לכל כפתור להחזיק את הטקסט שמתחתיו */
+  text-align: center; /* ממרכז את הטקסט מתחת לכפתור */
+  margin: 0 15px; /* רווח ביניהם */
+}
+
+.hint-container span,
+.safeclick-container span,
+.mineexterminator-container span {
+  display: block; /* גורם לטקסט להופיע מתחת לכפתור */
+  margin-top: 5px; /* רווח קטן בין הכפתור לטקסט */
+}
+
+button.mineexterminator {
+  background-color: transparent;
+  border: none;
+}
+
+button.megahint {
+  font-size: 18px;
+  margin: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  border: 2px solid black;
+  transition: 0.3s;
+}
+
+button.megahint:hover {
+  background-color: black;
+  color: white;
+}
+
+.safeclick:hover {
   background-color: black;
   color: white;
 }
