@@ -771,7 +771,7 @@ function onUndoClick() {
 
 let pressTimer
 
-function startPress() {
+function startPress(ev) {
   pressTimer = setTimeout(() => {
     console.log('לחיצה ארוכה במסך מגע!')
     onCellMarked(ev)
