@@ -346,43 +346,43 @@ function markAllmines() {
 function onCellMarked(ev) {
   if (isVictory()) return
   console.log('hi:')
-  if (ev.button === 2) {
-    ev.preventDefault() //
 
-    var classNameCell = '.' + ev.srcElement.classList[1]
-    var elCell = document.querySelector(classNameCell)
+  ev.preventDefault() //
 
-    // console.log(classNameCell.indexOf('-') + 1)
-    // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
+  var classNameCell = '.' + ev.srcElement.classList[1]
+  var elCell = document.querySelector(classNameCell)
 
-    // find the indexes of {i,j} of the cell
-    var cellIdx = {
-      i: +classNameCell[classNameCell.indexOf('-') + 1],
-      j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
-    }
-    // you cant mark a cell if it show!
-    if (gBoard[cellIdx.i][cellIdx.j].isShow) return
+  // console.log(classNameCell.indexOf('-') + 1)
+  // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
 
-    if (!gBoard[cellIdx.i][cellIdx.j].isMarked) {
-      //Model Update:
-      gBoard[cellIdx.i][cellIdx.j].isMarked = true
-
-      //Dom Update:
-      elCell.innerHTML = '🚩'
-      if (isVictory()) {
-      }
-    } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
-      //Model Update:
-      gBoard[cellIdx.i][cellIdx.j].isMarked = false
-      //Dom Update:
-      elCell.innerHTML = ''
-    }
-
-    // console.log('cellIdx.i:', cellIdx.i)
-    // console.log('cellIdx.j:', cellIdx.j)
-    markedCount()
-    countMines()
+  // find the indexes of {i,j} of the cell
+  var cellIdx = {
+    i: +classNameCell[classNameCell.indexOf('-') + 1],
+    j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
   }
+  // you cant mark a cell if it show!
+  if (gBoard[cellIdx.i][cellIdx.j].isShow) return
+
+  if (!gBoard[cellIdx.i][cellIdx.j].isMarked) {
+    //Model Update:
+    gBoard[cellIdx.i][cellIdx.j].isMarked = true
+
+    //Dom Update:
+    elCell.innerHTML = '🚩'
+    if (isVictory()) {
+    }
+  } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
+    //Model Update:
+    gBoard[cellIdx.i][cellIdx.j].isMarked = false
+    //Dom Update:
+    elCell.innerHTML = ''
+  }
+
+  // console.log('cellIdx.i:', cellIdx.i)
+  // console.log('cellIdx.j:', cellIdx.j)
+  markedCount()
+  countMines()
+
   isVictory()
 }
 
