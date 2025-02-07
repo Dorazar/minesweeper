@@ -777,7 +777,7 @@ function startPress(ev) {
   pressTimer = setTimeout(() => {
     console.log('לחיצה ארוכה במסך מגע!')
     onCellMarked(ev)
-  }, 1000) // מזהה לחיצה ארוכה אחרי שנייה
+  }, 2000) // מזהה לחיצה ארוכה אחרי שנייה
 }
 
 function cancelPress() {
