@@ -772,6 +772,7 @@ function onUndoClick() {
 let pressTimer
 
 function startPress(ev) {
+  if (!gGame.isOn) return
   ev.preventDefault()
   pressTimer = setTimeout(() => {
     console.log('לחיצה ארוכה במסך מגע!')
