@@ -15,7 +15,7 @@ function renderBoard(mat, selector) {
       const className = `cell cell-${i}-${j}`
 
       strHTML += `<td class="${className}" 
-      onclick=onCellClicked(this,${i},${j});onCellClickedHint(${i},${j});megaHint(this,${i},${j}) oncontextmenu="onCellMarked(event)"
+      onclick=onCellClicked(this,${i},${j});onCellClickedHint(${i},${j});megaHint(this,${i},${j}) oncontextmenu="onCellMarked(event)" ondblclick="onCellMarked(event)" ontouchstart="startPress()" ontouchend="cancelPress()" ontouchcancel="cancelPress()"
       >${cell}</td>`
     }
 

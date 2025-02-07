@@ -20,6 +20,10 @@ var gExterminator
 var gMegaHintLocations = []
 var gMaxMegaHint
 var megaHintIsOn = false
+//undo
+var isUndoOn = false
+var gUndoLocations
+var gMaxUndo
 
 var gSafeLocations
 var gMaxSafeLocations
@@ -42,6 +46,8 @@ function onInit() {
   gMaxSafeLocations = 3
   gExterminator = 1
   gMaxMegaHint = 1
+  gUndoLocations = []
+  gMaxUndo = 3
   shownCount()
   markedCount()
   minesOnStart()
@@ -65,23 +71,18 @@ function buildBoard() {
 }
 
 function onCellClicked(elCell, i, j) {
+  gUndoLocations = []
   if (megaHintIsOn) return
   if (hintIsOn) return
   if (gBoard[i][j].isMarked) return
   if (gBoard[i][j].isShow) return
   if (gLeftLives <= 0) return
-  // gBoard[0][1].isMine = true
-  // gBoard[1][1].isMine = true
 
   // what happend on the first press
   if (!gGame.isOn) {
     startStopwatch()
     putMinesOnRandEmptyLocations(gBoard)
     updateMinesNegCount(gBoard)
-
-    // if (gBoard[i][j].minesAroundCount === 0) {
-    //   console.log(elCell)
-    // }
     // if at the 1st press it mine, find another empty place for the min
     if (gBoard[i][j].isMine) {
       gBoard[i][j].isMine = false
@@ -94,19 +95,17 @@ function onCellClicked(elCell, i, j) {
       renderCell(newMineLocation, gBoard[i][j].minesAroundCount)
       updateMinesNegCount(gBoard)
     }
-    // if (gBoard[i][j].minesAroundCount === '') {
-    //   // console.log(`Cell (${i},${j}) is 0, expanding...`)
-    //   expandUncover(gBoard, elCell, i, j)
-    // }
-
     renderCell({ i, j }, gBoard[i][j].minesAroundCount)
     updateMinesNegCount(gBoard)
     gGame.isOn = true
+    //added undo
+    saveUndoLocations(i, j)
   }
 
   if (gGame.isOn & !gBoard[i][j].isMine) {
     if (gBoard[i][j].minesAroundCount === '') {
       // console.log(`Cell (${i},${j}) is 0, expanding...`)
+
       expandUncover(gBoard, elCell, i, j)
     }
     // elCell.innerHTML = gBoard[i][j].minesAroundCount
@@ -115,9 +114,12 @@ function onCellClicked(elCell, i, j) {
     gBoard[i][j].isShow = true
 
     renderCell({ i, j }, gBoard[i][j].minesAroundCount)
+    // added undo
+    saveUndoLocations(i, j)
   }
 
   if (gGame.isOn & gBoard[i][j].isMine) {
+    saveUndoLocations(i, j)
     console.log('press on mine!')
     elCell.classList.add('clicked')
     elCell.classList.add('mine')
@@ -152,6 +154,7 @@ function expandUncover(board, elCell, i, j) {
   var neighs = []
   var neighsrecursion = []
   var pos = { i, j }
+
   for (var i = pos.i - 1; i <= pos.i + 1; i++) {
     if (i < 0 || i > board.length - 1) continue
     for (var j = pos.j - 1; j <= pos.j + 1; j++) {
@@ -172,6 +175,10 @@ function expandUncover(board, elCell, i, j) {
     renderCell(currNeigh, board[currNeigh.i][currNeigh.j].minesAroundCount)
     elCell.classList.add('clicked')
 
+    if (!gUndoLocations.includes({ i: currNeigh.i }, { j: currNeigh.j })) {
+      gUndoLocations.push(currNeigh)
+    }
+
     if (board[currNeigh.i][currNeigh.j].minesAroundCount === '') {
       neighsrecursion.push(currNeigh)
     }
@@ -183,7 +190,7 @@ function expandUncover(board, elCell, i, j) {
   }
 }
 
-/// === random algorithem to find empty cell for mine ====
+//random algorithem to find empty cell for mine
 
 function findEmptyCell(board) {
   gEmptyCells = []
@@ -211,7 +218,7 @@ function putMinesOnRandEmptyLocations(board) {
 }
 // ==================================================== //
 
-//לולאת שכנים לספירת מס המוקשים השכנים
+// count the neighs mines
 function setMinesNegsCount(pos, board) {
   var neighs = ''
   for (var i = pos.i - 1; i <= pos.i + 1; i++) {
@@ -266,6 +273,27 @@ function lives(num) {
   }
 }
 
+function updateLivesUndo(gLeftLives) {
+  var elLives = document.querySelector('.lives span')
+  switch (gLeftLives) {
+    case 3:
+      elLives.innerHTML = '🛟🛟🛟'
+      break
+    case 2:
+      elLives.innerHTML = '🛟🛟'
+      break
+    case 1:
+      elLives.innerHTML = '🛟'
+      break
+    case 0:
+      elLives.innerHTML = '☠️'
+      markAllmines()
+      break
+    default:
+      break
+  }
+}
+
 function onRestart() {
   var elSafeClickText = document.querySelector('.safeclick-container .clicks')
   elSafeClickText.innerHTML = 3
@@ -282,6 +310,9 @@ function onRestart() {
   elMinexterminator.innerHTML = gExterminator
   gMegaHintLocations = []
   megaHintIsOn = false
+  gMaxUndo = 3
+  var elMaxUndo = document.querySelector('.undo-container .clicks')
+  elMaxUndo.innerHTML = gMaxUndo
   resetHints()
   resetStopwatch()
   onInit()
@@ -427,9 +458,8 @@ function markedCount() {
 
 //Bonuses!
 
-//bonus: hints
+//bonus:Hints
 
-// added the function on the render
 function onHintClick(el) {
   if (!gGame.isOn) return
   el.innerHTML = '💡'
@@ -613,13 +643,22 @@ function onMineExterminator() {
     renderCell(currMine, '')
     minesLocations.splice(randIdx, 1)
   }
+
   gExterminator--
   countMines()
   updateMinesNegCount(gBoard)
+  updateBoardNumsAfterExterminator(gBoard)
   var elMinexterminator = document.querySelector('.mineexterminator-container span')
   elMinexterminator.innerHTML = gExterminator
 }
 
+function updateBoardNumsAfterExterminator(gBoard) {
+  for (var i = 0; i < gBoard.length; i++) {
+    for (var j = 0; j < gBoard[i].length; j++) {
+      if (gBoard[i][j].isShow) renderCell({ i, j }, gBoard[i][j].minesAroundCount)
+    }
+  }
+}
 //MegaHint
 
 function megaHint(elCell, i, j) {
@@ -694,4 +733,51 @@ function expandUncoverMegaHint(cellsToExpose) {
 function onMegaHintBtn() {
   if (!gGame.isOn || gMaxMegaHint === 0) return
   megaHintIsOn = true
+}
+
+//undo
+// save the last click lcation / locations if it recursion
+function saveUndoLocations(i, j) {
+  var location = { i, j }
+  gUndoLocations.push(location)
+
+  // console.log('im the undo button')
+  // console.log(gUndoLocations)
+}
+
+function onUndoClick() {
+  if (!gGame.isOn || gMaxUndo === 0 || gUndoLocations.length === 0) return
+  isUndoOn = true
+  for (var i = 0; i < gUndoLocations.length; i++) {
+    var currLocation = gUndoLocations[i]
+    //model
+    gBoard[currLocation.i][currLocation.j].isShow = false
+    //render
+    if (gBoard[currLocation.i][currLocation.j].isMine) {
+      gLeftLives++
+      updateLivesUndo(gLeftLives)
+      console.log('gLeftLives:', gLeftLives)
+    }
+    var elCell = document.querySelector('.' + getClassName(currLocation))
+    elCell.classList.remove('clicked')
+  }
+  gMaxUndo--
+  var elMaxUndo = document.querySelector('.undo-container .clicks')
+  elMaxUndo.innerHTML = gMaxUndo
+  gUndoLocations = []
+
+  shownCount()
+}
+
+let pressTimer
+
+function startPress() {
+  pressTimer = setTimeout(() => {
+    console.log('לחיצה ארוכה במסך מגע!')
+    onCellMarked(ev)
+  }, 1000) // מזהה לחיצה ארוכה אחרי שנייה
+}
+
+function cancelPress() {
+  clearTimeout(pressTimer) // מבטל את הטיימר אם המשתמש משחרר מוקדם
 }
