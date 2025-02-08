@@ -773,13 +773,15 @@ function onUndoClick() {
 
 let pressTimer
 var gPressIsOn = false
+
 function startPress(ev) {
+  if (!gGame.isOn) return
+
   pressTimer = setTimeout(function () {
     console.log('לחיצה ארוכה זוהתה!')
-    ev.preventDefault()
     gPressIsOn = true
     onCellMarked(ev)
-  }, 1000) // 500 מילישניות (חצי שנייה)
+  }, 500) // 500 מילישניות (חצי שנייה)
 }
 
 function endPress() {
