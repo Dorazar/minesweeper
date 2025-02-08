@@ -346,47 +346,45 @@ function markAllmines() {
 }
 
 function onCellMarked(ev) {
-  ev.preventDefault()
-  console.dir(ev)
-  if (isVictory() || !gGame.isOn) return
+  if (isVictory() || !gGame.isOn || gPressIsOn) return
   console.log('hi:')
-  if (ev.button === 2 || ev.button === -1) {
-    ev.preventDefault() //
 
-    var classNameCell = '.' + ev.srcElement.classList[1]
-    var elCell = document.querySelector(classNameCell)
+  ev.preventDefault() //
 
-    // console.log(classNameCell.indexOf('-') + 1)
-    // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
+  var classNameCell = '.' + ev.srcElement.classList[1]
+  var elCell = document.querySelector(classNameCell)
 
-    // find the indexes of {i,j} of the cell
-    var cellIdx = {
-      i: +classNameCell[classNameCell.indexOf('-') + 1],
-      j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
-    }
-    // you cant mark a cell if it show!
-    if (gBoard[cellIdx.i][cellIdx.j].isShow) return
+  // console.log(classNameCell.indexOf('-') + 1)
+  // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
 
-    if (!gBoard[cellIdx.i][cellIdx.j].isMarked) {
-      //Model Update:
-      gBoard[cellIdx.i][cellIdx.j].isMarked = true
-
-      //Dom Update:
-      elCell.innerHTML = '🚩'
-      if (isVictory()) {
-      }
-    } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
-      //Model Update:
-      gBoard[cellIdx.i][cellIdx.j].isMarked = false
-      //Dom Update:
-      elCell.innerHTML = ''
-    }
-
-    // console.log('cellIdx.i:', cellIdx.i)
-    // console.log('cellIdx.j:', cellIdx.j)
-    markedCount()
-    countMines()
+  // find the indexes of {i,j} of the cell
+  var cellIdx = {
+    i: +classNameCell[classNameCell.indexOf('-') + 1],
+    j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
   }
+  // you cant mark a cell if it show!
+  if (gBoard[cellIdx.i][cellIdx.j].isShow) return
+
+  if (!gBoard[cellIdx.i][cellIdx.j].isMarked) {
+    //Model Update:
+    gBoard[cellIdx.i][cellIdx.j].isMarked = true
+
+    //Dom Update:
+    elCell.innerHTML = '🚩'
+    if (isVictory()) {
+    }
+  } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
+    //Model Update:
+    gBoard[cellIdx.i][cellIdx.j].isMarked = false
+    //Dom Update:
+    elCell.innerHTML = ''
+  }
+
+  // console.log('cellIdx.i:', cellIdx.i)
+  // console.log('cellIdx.j:', cellIdx.j)
+  markedCount()
+  countMines()
+
   isVictory()
 }
 
@@ -773,6 +771,18 @@ function onUndoClick() {
   shownCount()
 }
 
-function onCellTouch(el) {
-  console.log(el)
+let pressTimer
+var gPressIsOn = false
+function startPress(ev) {
+  pressTimer = setTimeout(function () {
+    console.log('לחיצה ארוכה זוהתה!')
+    ev.preventDefault()
+    gPressIsOn = true
+    onCellMarked(ev)
+  }, 1000) // 500 מילישניות (חצי שנייה)
+}
+
+function endPress() {
+  clearTimeout(pressTimer) // אם המשתמש משחרר לפני הזמן, לא נחשב לחיצה ארוכה
+  gPressIsOn = false
 }
