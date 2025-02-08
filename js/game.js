@@ -773,8 +773,14 @@ function onUndoClick() {
 let pressTimer
 var gPressIsOn = false
 
-function startPress(ev) {
+function startPress(ev, i, j) {
   if (!gGame.isOn) return
+  if (gBoard[i][j].isMarked) {
+    gBoard[i][j].isMarked = false
+    var classNameCell = '.' + ev.srcElement.classList[1]
+    var elCell = document.querySelector(classNameCell)
+    elCell.innerHTML = ''
+  }
   pressTimer = setTimeout(function () {
     console.log('long press')
     gPressIsOn = true
