@@ -72,7 +72,6 @@ function buildBoard() {
 
 function onCellClicked(elCell, i, j) {
   gUndoLocations = []
-  if (gPressIsOn) return
   if (megaHintIsOn) return
   if (hintIsOn) return
   if (gBoard[i][j].isMarked) return
@@ -347,7 +346,7 @@ function markAllmines() {
 }
 
 function onCellMarked(ev) {
-  if (isVictory() || !gGame.isOn || gPressIsOn) return
+  if (isVictory() || !gGame.isOn) return
   console.log('hi:')
   ev.preventDefault() //
 
