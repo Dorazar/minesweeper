@@ -72,6 +72,7 @@ function buildBoard() {
 
 function onCellClicked(elCell, i, j) {
   gUndoLocations = []
+  if (gPressIsOn) return
   if (megaHintIsOn) return
   if (hintIsOn) return
   if (gBoard[i][j].isMarked) return
