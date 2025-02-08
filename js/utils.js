@@ -16,7 +16,7 @@ function renderBoard(mat, selector) {
 
       strHTML += `<td class="${className}" 
       onclick=onCellClicked(this,${i},${j});onCellClickedHint(${i},${j});megaHint(this,${i},${j}) 
-      oncontextmenu="onCellMarked(event)"
+      oncontextmenu="onCellMarked(event)" touchstart="onCellTouch(this)"
       >${cell}</td>`
     }
 

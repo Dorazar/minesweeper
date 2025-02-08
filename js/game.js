@@ -346,10 +346,11 @@ function markAllmines() {
 }
 
 function onCellMarked(ev) {
-  console.log('ev.detail:', ev.detail)
+  ev.preventDefault()
+  console.dir(ev)
   if (isVictory() || !gGame.isOn) return
   console.log('hi:')
-  if (ev.button === 2 || ev.detail === 0) {
+  if (ev.button === 2 || ev.button === -1) {
     ev.preventDefault() //
 
     var classNameCell = '.' + ev.srcElement.classList[1]
@@ -770,4 +771,8 @@ function onUndoClick() {
   gUndoLocations = []
 
   shownCount()
+}
+
+function onCellTouch(el) {
+  console.log(el)
 }
