@@ -167,6 +167,8 @@ function expandUncover(board, elCell, i, j) {
     var currNeigh = neighs[i]
     // recursion
     if (board[currNeigh.i][currNeigh.j].isShow) continue
+    // to prevent the situation of: if the cell marked, it sholud not show by the neighs open
+    if (board[currNeigh.i][currNeigh.j].isMarked) continue
     board[currNeigh.i][currNeigh.j].isShow = true
     var className = '.' + getClassName(currNeigh)
     // console.log('className:', className)
@@ -218,7 +220,7 @@ function putMinesOnRandEmptyLocations(board) {
 }
 // ==================================================== //
 
-// count the neighs mines
+// count the neighs
 function setMinesNegsCount(pos, board) {
   var neighs = ''
   for (var i = pos.i - 1; i <= pos.i + 1; i++) {
@@ -344,45 +346,46 @@ function markAllmines() {
 }
 
 function onCellMarked(ev) {
-  if (isVictory()) return
+  console.log('ev.detail:', ev.detail)
+  if (isVictory() || !gGame.isOn) return
   console.log('hi:')
+  if (ev.button === 2 || ev.detail === 0) {
+    ev.preventDefault() //
 
-  ev.preventDefault() //
+    var classNameCell = '.' + ev.srcElement.classList[1]
+    var elCell = document.querySelector(classNameCell)
 
-  var classNameCell = '.' + ev.srcElement.classList[1]
-  var elCell = document.querySelector(classNameCell)
+    // console.log(classNameCell.indexOf('-') + 1)
+    // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
 
-  // console.log(classNameCell.indexOf('-') + 1)
-  // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
-
-  // find the indexes of {i,j} of the cell
-  var cellIdx = {
-    i: +classNameCell[classNameCell.indexOf('-') + 1],
-    j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
-  }
-  // you cant mark a cell if it show!
-  if (gBoard[cellIdx.i][cellIdx.j].isShow) return
-
-  if (!gBoard[cellIdx.i][cellIdx.j].isMarked) {
-    //Model Update:
-    gBoard[cellIdx.i][cellIdx.j].isMarked = true
-
-    //Dom Update:
-    elCell.innerHTML = '🚩'
-    if (isVictory()) {
+    // find the indexes of {i,j} of the cell
+    var cellIdx = {
+      i: +classNameCell[classNameCell.indexOf('-') + 1],
+      j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
     }
-  } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
-    //Model Update:
-    gBoard[cellIdx.i][cellIdx.j].isMarked = false
-    //Dom Update:
-    elCell.innerHTML = ''
+    // you cant mark a cell if it show!
+    if (gBoard[cellIdx.i][cellIdx.j].isShow) return
+
+    if (!gBoard[cellIdx.i][cellIdx.j].isMarked) {
+      //Model Update:
+      gBoard[cellIdx.i][cellIdx.j].isMarked = true
+
+      //Dom Update:
+      elCell.innerHTML = '🚩'
+      if (isVictory()) {
+      }
+    } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
+      //Model Update:
+      gBoard[cellIdx.i][cellIdx.j].isMarked = false
+      //Dom Update:
+      elCell.innerHTML = ''
+    }
+
+    // console.log('cellIdx.i:', cellIdx.i)
+    // console.log('cellIdx.j:', cellIdx.j)
+    markedCount()
+    countMines()
   }
-
-  // console.log('cellIdx.i:', cellIdx.i)
-  // console.log('cellIdx.j:', cellIdx.j)
-  markedCount()
-  countMines()
-
   isVictory()
 }
 
@@ -767,19 +770,4 @@ function onUndoClick() {
   gUndoLocations = []
 
   shownCount()
-}
-
-let pressTimer
-
-function startPress(ev) {
-  if (!gGame.isOn) return
-  ev.preventDefault()
-  pressTimer = setTimeout(() => {
-    console.log('לחיצה ארוכה במסך מגע!')
-    onCellMarked(ev)
-  }, 2000) // מזהה לחיצה ארוכה אחרי שנייה
-}
-
-function cancelPress() {
-  clearTimeout(pressTimer) // מבטל את הטיימר אם המשתמש משחרר מוקדם
 }
