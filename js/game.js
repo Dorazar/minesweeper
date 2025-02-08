@@ -74,7 +74,11 @@ function onCellClicked(elCell, i, j) {
   gUndoLocations = []
   if (megaHintIsOn) return
   if (hintIsOn) return
-  if (gBoard[i][j].isMarked) return
+  if (gBoard[i][j].isMarked) {
+    gBoard[i][j].isMarked = false
+    renderCell({ i, j }, '')
+    return
+  }
   if (gBoard[i][j].isShow) return
   if (gLeftLives <= 0) return
 
