@@ -348,7 +348,7 @@ function markAllmines() {
 function onCellMarked(ev) {
   if (isVictory() || !gGame.isOn || gPressIsOn) return
   console.log('hi:')
-
+  ev.stopPropagation()
   ev.preventDefault() //
 
   var classNameCell = '.' + ev.srcElement.classList[1]
@@ -780,7 +780,7 @@ function startPress(ev) {
   pressTimer = setTimeout(function () {
     console.log('לחיצה ארוכה זוהתה!')
     gPressIsOn = true
-    onCellMarked(ev)
+    ev.onCellMarked(ev)
   }, 500) // 500 מילישניות (חצי שנייה)
 }
 
