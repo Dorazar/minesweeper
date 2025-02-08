@@ -1,3 +1,7 @@
+* {
+  -webkit-touch-callout: none;
+}
+
 body {
   background-image: url('../jpg/minesweeper1.png');
   text-align: center;
