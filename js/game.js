@@ -74,9 +74,11 @@ function onCellClicked(elCell, i, j) {
   gUndoLocations = []
   if (megaHintIsOn) return
   if (hintIsOn) return
+  //לבדוק למה זה לא משפיע על המקרה שהתא מסומן גם בלחיצה במסך מגע
   if (gBoard[i][j].isMarked) {
     gBoard[i][j].isMarked = false
     renderCell({ i, j }, '')
+    console.log('yep:')
     return
   }
   if (gBoard[i][j].isShow) return
@@ -347,48 +349,6 @@ function markAllmines() {
   elSmiley.innerHTML = '🤯'
   gGame.isOn = false
   stopStopwatch()
-}
-
-function onCellMarked(ev) {
-  if (isVictory() || !gGame.isOn) return
-  console.log('hi:')
-  ev.preventDefault() //
-
-  var classNameCell = '.' + ev.srcElement.classList[1]
-  var elCell = document.querySelector(classNameCell)
-
-  // console.log(classNameCell.indexOf('-') + 1)
-  // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
-
-  // find the indexes of {i,j} of the cell
-  var cellIdx = {
-    i: +classNameCell[classNameCell.indexOf('-') + 1],
-    j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
-  }
-  // you cant mark a cell if it show!
-  if (gBoard[cellIdx.i][cellIdx.j].isShow) return
-
-  if (!gBoard[cellIdx.i][cellIdx.j].isMarked) {
-    //Model Update:
-    gBoard[cellIdx.i][cellIdx.j].isMarked = true
-
-    //Dom Update:
-    elCell.innerHTML = '🚩'
-    if (isVictory()) {
-    }
-  } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
-    //Model Update:
-    gBoard[cellIdx.i][cellIdx.j].isMarked = false
-    //Dom Update:
-    elCell.innerHTML = ''
-  }
-
-  // console.log('cellIdx.i:', cellIdx.i)
-  // console.log('cellIdx.j:', cellIdx.j)
-  markedCount()
-  countMines()
-
-  isVictory()
 }
 
 function onDiffchose(elBtn) {
@@ -790,4 +750,45 @@ function endPress() {
   clearTimeout(pressTimer)
   console.log('clear')
   gPressIsOn = false
+}
+
+function onCellMarked(ev) {
+  ev.preventDefault()
+  if (isVictory() || !gGame.isOn || !gPressIsOn) return
+
+  var classNameCell = '.' + ev.srcElement.classList[1]
+  var elCell = document.querySelector(classNameCell)
+
+  // console.log(classNameCell.indexOf('-') + 1)
+  // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
+
+  // find the indexes of {i,j} of the cell
+  var cellIdx = {
+    i: +classNameCell[classNameCell.indexOf('-') + 1],
+    j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
+  }
+  // you cant mark a cell if it show!
+  if (gBoard[cellIdx.i][cellIdx.j].isShow) return
+
+  if (!gBoard[cellIdx.i][cellIdx.j].isMarked) {
+    //Model Update:
+    gBoard[cellIdx.i][cellIdx.j].isMarked = true
+
+    //Dom Update:
+    elCell.innerHTML = '🚩'
+    if (isVictory()) {
+    }
+  } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
+    //Model Update:
+    gBoard[cellIdx.i][cellIdx.j].isMarked = false
+    //Dom Update:
+    elCell.innerHTML = ''
+  }
+
+  // console.log('cellIdx.i:', cellIdx.i)
+  // console.log('cellIdx.j:', cellIdx.j)
+  markedCount()
+  countMines()
+
+  isVictory()
 }
