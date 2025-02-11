@@ -734,28 +734,36 @@ function onUndoClick() {
   shownCount()
 }
 
-let pressTimer
-var gPressIsOn = false
+// let pressTimer
+// var gPressIsOn = false
 
-function startPress(ev, i, j) {
-  if (!gGame.isOn) return
-  pressTimer = setTimeout(function () {
-    console.log('long press')
-    gPressIsOn = true
-    onCellMarked(ev)
-  }, 1000)
-}
+// function startPress(ev, i, j) {
+//   if (!gGame.isOn) return
+//   console.log('YOU STARTED TO PRESS')
+//   // pressTimer = setTimeout(function () {
+//   //   console.log('long press')
+//   //   onCellMarked(ev)
+//   //   gPressIsOn = true
+//   //   endPress()
+//   // }, 2000)
+//   // console.log('pressTimer:', pressTimer)
+// }
 
-function endPress() {
-  clearTimeout(pressTimer)
-  console.log('clear')
-  gPressIsOn = false
-}
+// function endPress() {
+//   if (!gGame.isOn) return
+//   // if (gPressIsOn) {
+//   //   console.log('you left!')
+//   //   clearTimeout(pressTimer)
+//   //   gPressIsOn = false
+//   // }
+//   // return
+//   console.log('YOU LEFT')
+// }
 
 function onCellMarked(ev) {
+  console.log('onCellMarked')
+  if (isVictory() || !gGame.isOn) return
   ev.preventDefault()
-  if (isVictory() || !gGame.isOn || !gPressIsOn) return
-
   var classNameCell = '.' + ev.srcElement.classList[1]
   var elCell = document.querySelector(classNameCell)
 
@@ -776,8 +784,6 @@ function onCellMarked(ev) {
 
     //Dom Update:
     elCell.innerHTML = '🚩'
-    if (isVictory()) {
-    }
   } else if (gBoard[cellIdx.i][cellIdx.j].isMarked) {
     //Model Update:
     gBoard[cellIdx.i][cellIdx.j].isMarked = false
