@@ -743,7 +743,7 @@ function startPress(ev, i, j) {
     console.log('long press')
     gPressIsOn = true
     onCellMarked(ev)
-  }, 500)
+  }, 1000)
 }
 
 function endPress() {
