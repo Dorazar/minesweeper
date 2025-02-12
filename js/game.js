@@ -759,8 +759,6 @@ function interuptedPress() {
   markedCount()
 }
 
-//להבין למה כאשר לוחצים לחיצה ארוכה, בשחרור הוא שוב פונה כאילו זה לחיצה
-
 function onCellMarked(ev) {
   ev.preventDefault()
   console.log(ev.pointerType)
