@@ -74,11 +74,10 @@ function onCellClicked(elCell, i, j) {
   gUndoLocations = []
   if (megaHintIsOn) return
   if (hintIsOn) return
-  //לבדוק למה זה לא משפיע על המקרה שהתא מסומן גם בלחיצה במסך מגע
   if (gBoard[i][j].isMarked) {
     gBoard[i][j].isMarked = false
     renderCell({ i, j }, '')
-    console.log('yep:')
+    markedCount()
     return
   }
   if (gBoard[i][j].isShow) return
@@ -527,7 +526,7 @@ function safeClick() {
     var className = '.' + getClassName(randCell)
     var elCell = document.querySelector(className)
     elCell.classList.remove('clickedonsafeclick')
-  }, 1500)
+  }, 1000)
   // delete the {i,j} you chose before
   gSafeLocations.splice(randIdx, 1)
   gMaxSafeLocations--
@@ -734,36 +733,43 @@ function onUndoClick() {
   shownCount()
 }
 
-// let pressTimer
-// var gPressIsOn = false
+let pressTimer
+var gPressIsOn = false
 
-// function startPress(ev, i, j) {
-//   if (!gGame.isOn) return
-//   console.log('YOU STARTED TO PRESS')
-//   // pressTimer = setTimeout(function () {
-//   //   console.log('long press')
-//   //   onCellMarked(ev)
-//   //   gPressIsOn = true
-//   //   endPress()
-//   // }, 2000)
-//   // console.log('pressTimer:', pressTimer)
-// }
+function startPress(ev, i, j) {
+  if (!gGame.isOn || gBoard[i][j].isMarked) return
+  pressTimer = setTimeout(function () {
+    console.log('long press')
+    gPressIsOn = true
+    onCellMarked(ev)
+  }, 500)
+}
 
-// function endPress() {
-//   if (!gGame.isOn) return
-//   // if (gPressIsOn) {
-//   //   console.log('you left!')
-//   //   clearTimeout(pressTimer)
-//   //   gPressIsOn = false
-//   // }
-//   // return
-//   console.log('YOU LEFT')
-// }
+function endPress() {
+  if (gPressIsOn) {
+    clearTimeout(pressTimer)
+    console.log('clear')
+    gPressIsOn = false
+  }
+  markedCount()
+}
+
+function interuptedPress() {
+  clearTimeout(pressTimer)
+  markedCount()
+}
+
+//להבין למה כאשר לוחצים לחיצה ארוכה, בשחרור הוא שוב פונה כאילו זה לחיצה
 
 function onCellMarked(ev) {
-  console.log('onCellMarked')
-  if (isVictory() || !gGame.isOn) return
   ev.preventDefault()
+  console.log(ev.pointerType)
+  console.log('onCellMarked trigged')
+  console.log('ev:', ev)
+  if (isVictory() || !gGame.isOn || ev.pointerType === 'touch') return
+  console.log('hi:')
+  //
+
   var classNameCell = '.' + ev.srcElement.classList[1]
   var elCell = document.querySelector(classNameCell)
 
@@ -789,6 +795,7 @@ function onCellMarked(ev) {
     gBoard[cellIdx.i][cellIdx.j].isMarked = false
     //Dom Update:
     elCell.innerHTML = ''
+    gGame.markedCount--
   }
 
   // console.log('cellIdx.i:', cellIdx.i)

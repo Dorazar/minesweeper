@@ -1,3 +1,9 @@
+* {
+  user-select: none; /* מונע בחירת טקסט */
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 body {
   background-image: url('../jpg/minesweeper1.png');
   text-align: center;
