@@ -28,6 +28,11 @@ var gMaxUndo
 var gSafeLocations
 var gMaxSafeLocations
 
+//smartphone touch
+
+var pressTimer
+var gPressIsOn = false
+
 var gLevel = {
   SIZE: 4,
   MINES: 2,
@@ -40,6 +45,7 @@ function onInit() {
   gBoard = buildBoard()
   renderBoard(gBoard, '.board-container')
   gGame.isOn = false
+  gPressIsOn = false
   gGame.shownCount = 0
   gGame.markedCount = 0
   gHints = 3
@@ -52,6 +58,7 @@ function onInit() {
   markedCount()
   minesOnStart()
   gLeftLives = gLevel.LIVES
+  gPressIsOn = false
 }
 
 function buildBoard() {
@@ -78,6 +85,7 @@ function onCellClicked(elCell, i, j) {
     gBoard[i][j].isMarked = false
     renderCell({ i, j }, '')
     markedCount()
+    countMines()
     return
   }
   if (gBoard[i][j].isShow) return
@@ -320,6 +328,7 @@ function onRestart() {
   gMaxUndo = 3
   var elMaxUndo = document.querySelector('.undo-container .clicks')
   elMaxUndo.innerHTML = gMaxUndo
+  gPressIsOn = false
   resetHints()
   resetStopwatch()
   onInit()
@@ -526,7 +535,7 @@ function safeClick() {
     var className = '.' + getClassName(randCell)
     var elCell = document.querySelector(className)
     elCell.classList.remove('clickedonsafeclick')
-  }, 1000)
+  }, 1500)
   // delete the {i,j} you chose before
   gSafeLocations.splice(randIdx, 1)
   gMaxSafeLocations--
@@ -733,30 +742,19 @@ function onUndoClick() {
   shownCount()
 }
 
-let pressTimer
-var gPressIsOn = false
-
 function startPress(ev, i, j) {
   if (!gGame.isOn || gBoard[i][j].isMarked) return
   pressTimer = setTimeout(function () {
     console.log('long press')
-    gPressIsOn = true
     onCellMarked(ev)
-  }, 500)
+    gPressIsOn = true
+  }, 1000)
 }
 
 function endPress() {
-  if (gPressIsOn) {
-    clearTimeout(pressTimer)
-    console.log('clear')
-    gPressIsOn = false
-  }
-  markedCount()
-}
-
-function interuptedPress() {
   clearTimeout(pressTimer)
-  markedCount()
+  console.log('clear')
+  gPressIsOn = false
 }
 
 function onCellMarked(ev) {
@@ -768,17 +766,17 @@ function onCellMarked(ev) {
   console.log('hi:')
   //
 
-  var classNameCell = '.' + ev.srcElement.classList[1]
-  var elCell = document.querySelector(classNameCell)
-
-  // console.log(classNameCell.indexOf('-') + 1)
-  // console.log(classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1)
-
-  // find the indexes of {i,j} of the cell
+  // Assuming the cell element has a class in the format "cell-i-j"
+  var classNameCell = ev.srcElement.classList[1] // e.g., "cell-10-3"
+  var parts = classNameCell.split('-') // results in ["cell", "10", "3"]
   var cellIdx = {
-    i: +classNameCell[classNameCell.indexOf('-') + 1],
-    j: +classNameCell[classNameCell.indexOf('-', classNameCell.indexOf('-') + 1) + 1],
+    i: +parts[1],
+    j: +parts[2],
   }
+
+  // Now toggle flag safely using cellIdx.i and cellIdx.j
+  var elCell = document.querySelector('.' + classNameCell)
+
   // you cant mark a cell if it show!
   if (gBoard[cellIdx.i][cellIdx.j].isShow) return
 
