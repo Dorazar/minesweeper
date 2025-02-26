@@ -840,4 +840,7 @@ function gameOver() {
 function onClickTutorial() {
   var elTutorial = document.querySelector('.tutorial_desktop')
   elTutorial.style.display = 'none'
+
+  var elTutorialMobile = document.querySelector('.tutorial_mobile')
+  elTutorialMobile.style.display = 'none'
 }
