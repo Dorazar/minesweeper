@@ -14,6 +14,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh; /* 100% מגובה הדפדפן */
+  margin: 0 auto;
 }
 
 h1 {
@@ -68,7 +69,7 @@ table {
 }
 
 .restart .smiley:active {
-  transform: scale(0.9);
+  transform: scale(0.5);
 }
 
 footer {
@@ -125,6 +126,25 @@ footer {
 .cell.clickedonsafeclick {
   color: black;
   border: 2px solid rgb(16, 165, 252);
+  background-color: rgb(202, 202, 202);
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.clickonMineExterminator {
+  animation: flash 0.5s ease-in-out infinite;
+  color: black;
+  outline: 0.5px solid rgb(16, 165, 252);
   background-color: rgb(202, 202, 202);
 }
 
@@ -192,7 +212,6 @@ button:hover {
 }
 
 .scores {
-  width: 60%; /* התאמה טובה לכל מסך */
   margin: 20px auto;
   border-collapse: collapse;
 
@@ -265,6 +284,7 @@ img {
 button.mineexterminator {
   background-color: transparent;
   border: none;
+  padding: 0;
 }
 
 button.megahint {
@@ -306,6 +326,61 @@ button.undo:hover {
   color: white;
 }
 
+.modal-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-container.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 300px;
+  z-index: 9999;
+}
+
+.modal-text-box {
+  margin-bottom: 300px;
+}
+
+.modal-button {
+  font-size: 18px;
+  margin: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  border: 2px solid black;
+  transition: 0.3s;
+}
+
+.tutorial_desktop {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /* background-size: 150px;
+  background-repeat: no-repeat;
+  background-position: center center; */
+  background-color: rgba(0, 0, 0, 0.562);
+  border-radius: 20px;
+  top: 45%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  padding: 10px;
+  /* display: block;
+  user-select: none; */
+  border: 1px solid grey;
+}
+
+h1 {
+  margin: 0 auto;
+}
 @media (max-width: 768px) {
   table {
     background-color: grey;
@@ -338,5 +413,95 @@ button.undo:hover {
     border: solid red;
     background-color: rgb(255, 100, 100);
     color: white;
+  }
+  .lightmode {
+    position: absolute; /* מיקום קבוע בדפדפן */
+    top: 1px; /* מרחק מהחלק העליון */
+    left: 1px; /* מרחק מהחלק השמאלי */
+    font-size: 10px;
+    padding: 4px 6px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .lightmode:hover {
+    background-color: black;
+    color: white;
+  }
+
+  .lightmodebackground {
+    color: purple;
+    background-image: url('../jpg/minesweeper2.png');
+    /* background-color: grey; */
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .beginner,
+  .medium,
+  .expert {
+    font-size: 15px;
+    margin: auto;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    border: 2px solid black;
+    transition: 0.3s;
+  }
+
+  .beginner:hover,
+  .medium:hover,
+  .expert:hover {
+    background-color: black;
+    color: white;
+  }
+
+  .restart .smiley {
+    all: unset;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  h1 {
+    margin-top: 0;
+  }
+  .hintsbuttons {
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .undo-container {
+    margin-right: 30px;
+  }
+  .undo-container .undo {
+    font-size: 15px;
+  }
+  .hint-container .megahint {
+    font-size: 15px;
+  }
+  .safeclick-container .safeclick {
+    font-size: 15px;
+  }
+  .scores {
+    font-size: 20px;
+  }
+  .scores th {
+    background-color: black;
+    color: white;
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .modal-text-box {
+    margin-bottom: 200px;
   }
 }

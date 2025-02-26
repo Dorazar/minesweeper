@@ -13,6 +13,9 @@
     <title>Mine Sweeper</title>
   </head>
   <body onload="onInit()"></body>
+
+  <img class="tutorial_desktop" onclick="onClickTutorial()" src="./turorial_desktop.png" alt="" />
+
   <button class="lightmode" onclick="onLightMode()">Light Mode ☀️</button>
   <h1>Mine Sweeper</h1>
   <div class="lives">
@@ -74,6 +77,14 @@
       </tr>
     </table>
   </div>
+
+  <div class="modal-container">
+    <div class="modal-text-box">
+      <div class="modaltext">🎉You Win!🎉</div>
+      <button class="modal-button" onclick="hideModal(); onRestart();">Play Again</button>
+    </div>
+  </div>
+
   <footer>Developed by Dor Azar</footer>
   <script src="js/game.js"></script>
   <script src="js/utils.js"></script>

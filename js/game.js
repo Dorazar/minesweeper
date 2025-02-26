@@ -92,6 +92,7 @@ function onCellClicked(elCell, i, j) {
   if (gLeftLives <= 0) return
 
   // what happend on the first press
+  onClickTutorial()
   if (!gGame.isOn) {
     startStopwatch()
     putMinesOnRandEmptyLocations(gBoard)
@@ -143,6 +144,7 @@ function onCellClicked(elCell, i, j) {
     lives(-1)
     if (gLeftLives === 0) {
       gBoard[i][j].isShow = false
+      gameOver()
       return
     }
     setTimeout(() => {
@@ -310,6 +312,7 @@ function updateLivesUndo(gLeftLives) {
 }
 
 function onRestart() {
+  document.querySelector('.modaltext').innerHTML = '🎉You Win!🎉'
   var elSafeClickText = document.querySelector('.safeclick-container .clicks')
   elSafeClickText.innerHTML = 3
   gLevel.LIVES = 3
@@ -396,6 +399,7 @@ function isVictory() {
     var elSmiley = document.querySelector('.smiley')
     elSmiley.innerHTML = '😎'
     stopStopwatch()
+    showModal()
     return true
   }
   return false
@@ -535,7 +539,7 @@ function safeClick() {
     var className = '.' + getClassName(randCell)
     var elCell = document.querySelector(className)
     elCell.classList.remove('clickedonsafeclick')
-  }, 1500)
+  }, 500)
   // delete the {i,j} you chose before
   gSafeLocations.splice(randIdx, 1)
   gMaxSafeLocations--
@@ -554,7 +558,6 @@ function onSafeClick() {
 function onLightMode() {
   var elBody = document.body
   var elBtn = document.querySelector('.lightmode')
-
   // console.log(elBtn)
 
   elBody.classList.toggle('lightmodebackground')
@@ -623,6 +626,22 @@ function onMineExterminator() {
   updateBoardNumsAfterExterminator(gBoard)
   var elMinexterminator = document.querySelector('.mineexterminator-container span')
   elMinexterminator.innerHTML = gExterminator
+
+  for (var i = 0; i < gBoard.length; i++) {
+    for (var j = 0; j < gBoard[i].length; j++) {
+      var elCellclass = document.querySelector('.' + getClassName({ i, j }))
+      elCellclass.classList.add('clickonMineExterminator')
+    }
+  }
+
+  setTimeout(() => {
+    for (var i = 0; i < gBoard.length; i++) {
+      for (var j = 0; j < gBoard[i].length; j++) {
+        var elCellclass = document.querySelector('.' + getClassName({ i, j }))
+        elCellclass.classList.remove('clickonMineExterminator')
+      }
+    }
+  }, 500)
 }
 
 function updateBoardNumsAfterExterminator(gBoard) {
@@ -749,6 +768,7 @@ function startPress(ev, i, j) {
     onCellMarked(ev)
     gPressIsOn = true
   }, 1000)
+  isVictory()
 }
 
 function endPress() {
@@ -800,4 +820,24 @@ function onCellMarked(ev) {
   countMines()
 
   isVictory()
+}
+
+function showModal() {
+  document.querySelector('.modal-container').classList.add('show')
+}
+
+function hideModal() {
+  console.log('the model is hide')
+  document.querySelector('.modal-container').classList.remove('show')
+}
+
+function gameOver() {
+  console.log('here')
+  document.querySelector('.modaltext').innerHTML = 'You lost!'
+  showModal()
+}
+
+function onClickTutorial() {
+  var elTutorial = document.querySelector('.tutorial_desktop')
+  elTutorial.style.display = 'none'
 }
