@@ -38,3 +38,8 @@ function getClassName(location) {
   const cellClass = 'cell-' + location.i + '-' + location.j
   return cellClass
 }
+
+function onInstrModal() {
+  const elInstrModal=document.querySelector('.instr-modal')
+  elInstrModal.show()
+}

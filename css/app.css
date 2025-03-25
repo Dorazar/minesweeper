@@ -74,6 +74,9 @@ table {
 }
 
 footer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
   font-size: 15px;
   margin-top: 10px;
 }
@@ -173,9 +176,9 @@ footer {
 }
 
 .lightmode {
-  position: fixed; /* מיקום קבוע בדפדפן */
-  top: 20px; /* מרחק מהחלק העליון */
-  left: 20px; /* מרחק מהחלק השמאלי */
+  position: absolute; /* מיקום קבוע בדפדפן */
+  top: 0rem; /* מרחק מהחלק העליון */
+  left: calc(50vw - 400px); /* מרחק מהחלק השמאלי */
   font-size: 14px;
   padding: 8px 10px;
   background-color: white;
@@ -386,6 +389,85 @@ h1 {
   display: none;
 }
 
+
+.instr-btn{
+  position: absolute;
+  right: calc(50vw - 400px);
+  top:0rem;
+  font-size: 14px;
+  padding: 8px 10px;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.instr-modal{
+  position: absolute;
+  top: 10vh;
+  background-color: rgba(236, 226, 213, 0.959);
+  width: 90vw;
+  height: 70vh;
+  overflow-y: auto;
+  /* display: grid;
+  grid-template-columns:400px 100px;
+  grid-template-rows: repeat(6,1fr);
+  justify-content: center; */
+  justify-content: center;
+  align-content: center;
+  
+}
+
+.instr-modal h2{
+  margin: 0;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.instr-modal td{
+
+  text-align: start;
+  font-size: 15px;
+  
+}
+
+.instr-modal th{
+  font-size: 15px;
+}
+
+.modal-ext-img{
+  height: 50px;
+  width: 70px;
+}
+
+.fearure-name{
+  white-space: nowrap
+}
+.modal-close-btn {
+top:0rem;
+font-size: 14px;
+padding: 8px 10px;
+background-color: white;
+color: black;
+border: 2px solid black;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s, color 0.3s;
+}
+
+.linkdin {
+  display: grid;
+  width: 250px;
+  height:50px;
+
+}
+
 @media (max-width: 768px) {
   table {
     background-color: grey;
@@ -530,5 +612,25 @@ h1 {
     padding: 20px;
     /* display: block;
     user-select: none; */
+  }
+
+  .instr-btn {
+    position: absolute; /* מיקום קבוע בדפדפן */
+    top: 1px; /* מרחק מהחלק העליון */
+    right: 1px; /* מרחק מהחלק השמאלי */
+    font-size: 10px;
+    padding: 4px 6px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .linkdin {
+    display: grid;
+    width: 150px;
+    height:30px;
+    margin-bottom: 20px;
   }
 }

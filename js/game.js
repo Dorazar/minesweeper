@@ -667,9 +667,10 @@ function megaHint(elCell, i, j) {
     var endLoc = gMegaHintLocations[1]
     console.log('startLoc:', startLoc)
     console.log('endLoc:', endLoc)
-    if (startLoc.i > endLoc.i) {
-      console.log('hi')
+    if (startLoc.i > endLoc.i || startLoc.j > endLoc.j) {
+      console.log('Invalid mega hint selection - start is after end')
       gMegaHintLocations = []
+      megaHintIsOn = false
       return
     }
 
@@ -683,6 +684,7 @@ function megaHint(elCell, i, j) {
 }
 
 function expandUncoverMegaHint(cellsToExpose) {
+  console.log('check')
   var originalContent = {}
   for (var i = 0; i < cellsToExpose.length; i++) {
     var currCell = cellsToExpose[i]
