@@ -34,8 +34,8 @@ var pressTimer
 var gPressIsOn = false
 
 var gLevel = {
-  SIZE: 4,
-  MINES: 2,
+  SIZE: 8,
+  MINES: 14,
   LIVES: 3,
 }
 

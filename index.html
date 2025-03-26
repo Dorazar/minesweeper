@@ -33,7 +33,7 @@
     </div>
   </div>
   <div class="buttons">
-    Game Level:
+    <!-- Game Level: -->
     <button class="beginner" onclick="onDiffchose(this)">Beginner</button>
     <button class="medium" onclick="onDiffchose(this)">Medium</button>
     <button class="expert" onclick="onDiffchose(this)">Expert</button>
@@ -91,8 +91,10 @@
       <h2>🧨 How to Play</h2>
 
       <p>
-        The goal of the game is to uncover all safe cells without clicking on a mine.
-        If you click a mine, you lose a life. Lose all lives – and the game is over.
+        <div>The goal of the game is to uncover all safe cells without clicking on a mine and put a flag on all cells with mine.</div>
+        <div>If you click a mine, you lose a life. Lose all lives – and the game is over.</div>
+        <div>Each number represents the amount of mines in the surrounding cells</div>
+        The first click is always safe – no mines will be placed there.
       </p>
       
       <h3>🛠️ Special Features</h3>
@@ -134,7 +136,7 @@
           <tr>
             <td>6</td>
             <td class="fearure-name"><img src="./jpg/mine_exterdinator-removebg-preview.png" alt="" class="modal-ext-img"></td>
-            <td>Removes 3 random mines from the board and updates the numbers accordingly (one-time use).</td>
+            <td>Removes 3 random mines from the board and updates the numbers accordingly (one-time use). works only at medium and hard level.</td>
           </tr>
           <tr>
             <td>7</td>
@@ -162,18 +164,10 @@
   </dialog>
 
   <footer>
-    <!-- Developed by Dor Azar 
-    <a href="https://www.linkedin.com/in/your-username" target="_blank" title="LinkedIn">
-      <img src="jpg/linkdin_logo-removebg-preview.png" 
-           alt="LinkedIn" 
-           />
-    </a> --> 
     <div>
-      <div class="hedline">Developed by</div> 
+      <div class="headline">Developed by</div> 
       <div><a href="https://www.linkedin.com/in/dor-azar-19b749246/"><img src="./jpg/linkdin.png" alt="" class="linkdin"></a></div>
     </div>
-  
-
   </footer>
   <script src="js/game.js"></script>
   <script src="js/utils.js"></script>

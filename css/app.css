@@ -2,14 +2,21 @@
   user-select: none; /* מונע בחירת טקסט */
   -webkit-user-select: none;
   -ms-user-select: none;
+  box-sizing: border-box;
 }
+
+html{
+  font-size: 16px;
+}
+
+
 
 body {
   background-image: url('../jpg/minesweeper1.png');
   text-align: center;
   color: lightgray;
   font-family: 'Comic Neue', sans-serif;
-  font-size: 20px; /* טקסט בסיסי גדול יותר */
+  font-size: 1rem; /* טקסט בסיסי גדול יותר */
   font-weight: 700;
   background-size: cover;
   background-repeat: no-repeat;
@@ -24,7 +31,7 @@ h1 {
 
 table {
   background-color: grey;
-  margin: 20px auto;
+  margin: 1.25rem auto;
   border: 2px solid lightgray;
   border-collapse: collapse; /* מונע הפרדה לא אחידה בין תאים */
 }
@@ -32,8 +39,8 @@ table {
 .cell {
   color: grey;
   border: 1px solid rgb(90, 90, 90);
-  width: 50px;
-  height: 50px;
+  width: 3rem;
+  height: 3rem;
   font-size: 1.5em;
   text-align: center;
   vertical-align: middle;
@@ -57,12 +64,12 @@ table {
 }
 
 .restart {
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .restart .smiley {
   all: unset;
-  font-size: 30px;
+  font-size: 2.14rem;
   cursor: pointer;
   padding: 5px;
   transition: transform 0.2s;
@@ -77,22 +84,23 @@ footer {
   display: flex;
   align-content: center;
   justify-content: center;
-  font-size: 15px;
-  margin-top: 10px;
+  font-size: 1rem;
+  margin-top: 1.4rem;
 }
 
 .beginner,
 .medium,
 .expert {
-  font-size: 18px;
-  margin: 10px;
-  padding: 8px 12px;
+  font-size: 1rem;
+  margin: 0.2rem;
+  padding: 0.66rem 0.85rem;
   cursor: pointer;
   background-color: white;
   color: black;
-  border-radius: 5px;
+  border-radius: 0.357rem;
   border: 2px solid black;
   transition: 0.3s;
+  width: 6rem;
 }
 
 .beginner:hover,
@@ -103,21 +111,21 @@ footer {
 }
 
 .lives {
-  font-size: 22px;
-  margin: 15px auto;
+  font-size: 1rem;
+  margin: 1rem auto;
 }
 
 .buttons {
-  margin: 20px auto;
+  margin: 1.42rem auto;
 }
 
 .lives span {
-  font-size: 24px;
+  font-size: 1.71rem;
 }
 
 .hints {
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.42px;
 }
 
 .cell.clickedonhint {
@@ -154,33 +162,34 @@ footer {
 }
 
 .hintsbuttons {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
 .safeclicktext {
-  font-size: 8px;
-  margin-top: 5px;
-  margin-left: 170px;
+  font-size: 0.57rem;
+  margin-top: 0.357rem;
+  margin-left: 12.14rem;
 }
 
 .safeclick {
-  font-size: 18px;
-  margin: 10px;
-  padding: 8px 12px;
+  font-size: 1rem;
+  margin: 1.4rem;
+  padding: 0.57rem 1.16rem;
   cursor: pointer;
   background-color: white;
   color: black;
   border-radius: 5px;
   border: 2px solid black;
   transition: 0.3s;
+  width: 8.6rem;
 }
 
 .lightmode {
   position: absolute; /* מיקום קבוע בדפדפן */
   top: 0rem; /* מרחק מהחלק העליון */
-  left: calc(50vw - 400px); /* מרחק מהחלק השמאלי */
-  font-size: 14px;
-  padding: 8px 10px;
+  left: calc(50vw - 25vw); /* מרחק מהחלק השמאלי */
+  font-size: 1rem;
+  padding: 0.571rem 0.71rem;
   background-color: white;
   color: black;
   border: 2px solid black;
@@ -188,6 +197,9 @@ footer {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
+
+
+
 
 .lightmode:hover {
   background-color: black;
@@ -206,8 +218,8 @@ button {
   font-family: 'Comic Neue', sans-serif;
   font-weight: 700;
   border: 2px solid white;
-  font-size: 18px;
-  padding: 10px 15px;
+  font-size: 1.285rem;
+  padding: 1.4rem 1rem;
   cursor: pointer;
 }
 
@@ -217,7 +229,7 @@ button:hover {
 }
 
 .scores {
-  margin: 20px auto;
+  margin: 1.42rem auto;
   border-collapse: collapse;
 
   table-layout: fixed; /* הופך את העמודות לשוות בגודלן */
@@ -227,16 +239,16 @@ button:hover {
 .scores th {
   background-color: black;
   color: white;
-  padding: 12px;
-  font-size: 18px;
+  padding: 0.357rem;
+  font-size: 1rem;
 }
 
 /* עיצוב התאים */
 .scores td {
   background-color: grey;
   color: white;
-  padding: 12px;
-  font-size: 16px;
+  padding: 0.357rem;
+  font-size: 1rem;
   border: 2px solid white;
   text-align: center;
 }
@@ -253,8 +265,8 @@ button:hover {
 img {
   border: none;
   outline: none;
-  margin-left: 10px;
-  width: 100px;
+
+  width: 7.14rem;
   height: auto;
   image-rendering: pixelated; /* שומר על שקיפות וניקיון */
 }
@@ -275,7 +287,7 @@ img {
 .undo-container {
   display: inline-block; /* מאפשר לכל כפתור להחזיק את הטקסט שמתחתיו */
   text-align: center; /* ממרכז את הטקסט מתחת לכפתור */
-  margin: 0 15px; /* רווח ביניהם */
+  margin: 0 1rem; /* רווח ביניהם */
 }
 
 .hint-container span,
@@ -293,15 +305,16 @@ button.mineexterminator {
 }
 
 button.megahint {
-  font-size: 18px;
-  margin: 10px;
-  padding: 8px 12px;
+  font-size: 1rem;
+  margin: 1.4rem;
+  padding: 0.57rem 1.16rem;
   cursor: pointer;
   background-color: white;
   color: black;
   border-radius: 5px;
   border: 2px solid black;
   transition: 0.3s;
+  width: 8rem;
 }
 
 button.megahint:hover {
@@ -315,15 +328,16 @@ button.megahint:hover {
 }
 
 button.undo {
-  font-size: 18px;
-  margin: 10px;
-  padding: 8px 12px;
+  font-size: 1rem;
+  margin: 1.4rem;
+  padding: 0.57rem 1.16rem;
   cursor: pointer;
   background-color: white;
   color: black;
   border-radius: 5px;
   border: 2px solid black;
   transition: 0.3s;
+  width: 8rem;
 }
 
 button.undo:hover {
@@ -354,9 +368,9 @@ button.undo:hover {
 }
 
 .modal-button {
-  font-size: 18px;
-  margin: 10px;
-  padding: 8px 12px;
+  font-size: 1rem;
+  margin: 1.4rem;
+  padding: 0.57rem 0.857rem;
   cursor: pointer;
   background-color: white;
   color: black;
@@ -367,8 +381,8 @@ button.undo:hover {
 
 .tutorial_desktop {
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: 10rem;
+  height: 10rem;
   /* background-size: 250px; */
   /* background-repeat: no-repeat;
   background-position: center center;  */
@@ -392,10 +406,10 @@ h1 {
 
 .instr-btn{
   position: absolute;
-  right: calc(50vw - 400px);
+  right: calc(50vw - 25vw);
   top:0rem;
-  font-size: 14px;
-  padding: 8px 10px;
+  font-size: 1rem;
+  padding: 0.57rem 1.4rem;
   background-color: white;
   color: black;
   border: 2px solid black;
@@ -409,7 +423,7 @@ h1 {
   top: 10vh;
   background-color: rgba(236, 226, 213, 0.959);
   width: 90vw;
-  height: 70vh;
+  height: fit;
   overflow-y: auto;
   /* display: grid;
   grid-template-columns:400px 100px;
@@ -433,12 +447,12 @@ h1 {
 .instr-modal td{
 
   text-align: start;
-  font-size: 15px;
+  font-size: 1rem;
   
 }
 
 .instr-modal th{
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 .modal-ext-img{
@@ -450,9 +464,10 @@ h1 {
   white-space: nowrap
 }
 .modal-close-btn {
-top:0rem;
-font-size: 14px;
-padding: 8px 10px;
+top:1px ;
+right: 1px;
+font-size: 1rem;
+padding: 0.57rem 1.4rem;
 background-color: white;
 color: black;
 border: 2px solid black;
@@ -461,17 +476,31 @@ cursor: pointer;
 transition: background-color 0.3s, color 0.3s;
 }
 
+dialog table {
+  background-color: rgba(245, 236, 194, 0.329);
+}
+
+
 .linkdin {
   display: grid;
-  width: 250px;
-  height:50px;
+  width: 17.85rem;
+  height:3.57rem;
 
 }
 
+footer .headline{
+  margin-bottom: 0.5rem;
+}
+
 @media (max-width: 768px) {
+
+  html{
+    font-size: 14px;
+  }
+
   table {
     background-color: grey;
-    margin: 20px auto;
+    margin: 1.5rem auto;
     border: 2px solid lightgray;
     border-collapse: collapse; /* מונע הפרדה לא אחידה בין תאים */
   }
@@ -479,9 +508,9 @@ transition: background-color 0.3s, color 0.3s;
   .cell {
     color: grey;
     border: 1px solid rgb(90, 90, 90);
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -506,7 +535,7 @@ transition: background-color 0.3s, color 0.3s;
     position: absolute; /* מיקום קבוע בדפדפן */
     top: 1px; /* מרחק מהחלק העליון */
     left: 1px; /* מרחק מהחלק השמאלי */
-    font-size: 10px;
+    font-size: 1rem;
     padding: 4px 6px;
     background-color: white;
     color: black;
@@ -530,9 +559,9 @@ transition: background-color 0.3s, color 0.3s;
   .beginner,
   .medium,
   .expert {
-    font-size: 15px;
+    font-size: 1rem;
     margin: auto;
-    padding: 8px 12px;
+    padding: 0.57rem 1.166rem;
     cursor: pointer;
     background-color: white;
     color: black;
@@ -550,7 +579,7 @@ transition: background-color 0.3s, color 0.3s;
 
   .restart .smiley {
     all: unset;
-    font-size: 30px;
+    font-size: 2.14rem;
     cursor: pointer;
     padding: 5px;
     transition: transform 0.2s;
@@ -560,37 +589,33 @@ transition: background-color 0.3s, color 0.3s;
     margin-top: 0;
   }
   .hintsbuttons {
-    font-size: 15px;
+    font-size: 1rem;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: center;
+    align-content: center;
+
   }
-  .undo-container {
-    margin-right: 30px;
+
+  .hint-container,.mineexterminator-container,.safeclick-container,.undo-container{
+    width: 11rem;
+    align-self: center; 
+
   }
-  .undo-container .undo {
-    font-size: 15px;
-  }
-  .hint-container .megahint {
-    font-size: 15px;
-  }
-  .safeclick-container .safeclick {
-    font-size: 15px;
-  }
+
   .scores {
-    font-size: 20px;
+    font-size: 1rem;
   }
   .scores th {
     background-color: black;
     color: white;
-    padding: 12px;
-    font-size: 15px;
+    padding: 1.166rem;
+    font-size: 1rem;
   }
 
   .modal-text-box {
-    margin-bottom: 200px;
+    margin-bottom: 14.28rem;
   }
   .tutorial_desktop {
     display: none;
@@ -599,17 +624,17 @@ transition: background-color 0.3s, color 0.3s;
   .tutorial_mobile {
     display: block;
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 10rem;
+    height: 10rem;
     /* background-size: 250px; */
     /* background-repeat: no-repeat;
     background-position: center center;  */
     background-color: rgba(0, 0, 0, 0.404);
     border-radius: 20px;
-    top: 50%;
-    right: 50%;
+    top: 35vh;
+    right: 50vw;
     transform: translate(50%, -50%);
-    padding: 20px;
+    padding: 1.42rem;
     /* display: block;
     user-select: none; */
   }
@@ -618,8 +643,8 @@ transition: background-color 0.3s, color 0.3s;
     position: absolute; /* מיקום קבוע בדפדפן */
     top: 1px; /* מרחק מהחלק העליון */
     right: 1px; /* מרחק מהחלק השמאלי */
-    font-size: 10px;
-    padding: 4px 6px;
+    font-size: 1rem;
+    padding: 0.285rem 0.428rem;
     background-color: white;
     color: black;
     border: 2px solid black;
@@ -629,8 +654,29 @@ transition: background-color 0.3s, color 0.3s;
   }
   .linkdin {
     display: grid;
-    width: 150px;
-    height:30px;
-    margin-bottom: 20px;
+    width: 10.71rem;
+    height:2.14rem;
+    margin-bottom: 1.42rem;
+  }
+
+  .instr-modal {
+    width: 95vw;
+    height: 80vh;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+  }
+  .instr-table {
+    width: 100%;
+    table-layout: auto;
+  }
+  .instr-table td,
+  .instr-table th {
+    white-space: normal; /* מאפשר שבירת שורות במידת הצורך */
+    font-size: 13px;
+    padding: 8px;
+  }
+  .instr-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.872);
   }
 }

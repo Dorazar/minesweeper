@@ -41,5 +41,5 @@ function getClassName(location) {
 
 function onInstrModal() {
   const elInstrModal=document.querySelector('.instr-modal')
-  elInstrModal.show()
+  elInstrModal.showModal()
 }
