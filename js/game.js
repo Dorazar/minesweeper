@@ -606,6 +606,15 @@ function getMineLocation() {
 }
 function onMineExterminator() {
   if (!gGame.isOn || gExterminator === 0) return
+  if (gLevel.SIZE===4) {
+    console.log('its 4')
+    const elExterminatorMessage = document.querySelector('.mine-exterminator-message')
+    elExterminatorMessage.classList.add('showMessage')
+    setTimeout(() => {
+      elExterminatorMessage.classList.remove('showMessage')
+    }, 1500);
+    return
+  }
   var minesLocations = getMineLocation()
   var randIdx = getRandomIntInclusive(0, minesLocations.length)
 

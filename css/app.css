@@ -1,12 +1,12 @@
 * {
-  user-select: none; /* מונע בחירת טקסט */
+  user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   box-sizing: border-box;
 }
 
 html{
-  font-size: 16px;
+  font-size: 14px;
 }
 
 
@@ -16,24 +16,24 @@ body {
   text-align: center;
   color: lightgray;
   font-family: 'Comic Neue', sans-serif;
-  font-size: 1rem; /* טקסט בסיסי גדול יותר */
+  font-size: 1rem; 
   font-weight: 700;
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 100vh; /* 100% מגובה הדפדפן */
+  min-height: 100vh; 
   margin: 0 auto;
 }
 
 h1 {
-  font-weight: bold; /* הופך את הכותרת לעבה יותר */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* מוסיף צל לכותרת */
+  font-weight: bold; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 table {
   background-color: grey;
   margin: 1.25rem auto;
   border: 2px solid lightgray;
-  border-collapse: collapse; /* מונע הפרדה לא אחידה בין תאים */
+  border-collapse: collapse; 
 }
 
 .cell {
@@ -491,6 +491,21 @@ dialog table {
 footer .headline{
   margin-bottom: 0.5rem;
 }
+
+.mine-exterminator-message{
+  display: none;
+}
+
+.mine-exterminator-message.showMessage{
+  display: grid;
+  position: fixed;
+
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: lightskyblue;
+  height: 1lh;
+}
+
 
 @media (max-width: 768px) {
 
