@@ -694,4 +694,18 @@ footer .headline{
   .instr-modal::backdrop {
     background-color: rgba(0, 0, 0, 0.872);
   }
+
+  .mine-exterminator-message{
+    display: none;
+  }
+  
+  .mine-exterminator-message.showMessage{
+    display: grid;
+    position: fixed;
+  
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: lightskyblue;
+    height: 1lh;
+  }
 }
