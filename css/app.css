@@ -502,7 +502,7 @@ footer .headline{
 
   left: 50%;
   transform: translate(-50%, -50%);
-  color: lightskyblue;
+  color: lightsalmon;
   height: 1lh;
 }
 
@@ -701,11 +701,11 @@ footer .headline{
   
   .mine-exterminator-message.showMessage{
     display: grid;
-    position: fixed;
+    /* position: fixed; */
   
     left: 50%;
     transform: translate(-50%, -50%);
-    color: lightskyblue;
+    color: lightsalmon;
     height: 1lh;
   }
 }
