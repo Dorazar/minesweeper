@@ -59,6 +59,7 @@ function onInit() {
   minesOnStart()
   gLeftLives = gLevel.LIVES
   gPressIsOn = false
+  
 }
 
 function buildBoard() {

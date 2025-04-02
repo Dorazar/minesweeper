@@ -508,7 +508,9 @@ footer .headline{
 
 
 @media (max-width: 768px) {
-
+    button:focus {
+    outline: none;
+  }
   html{
     font-size: 14px;
   }
