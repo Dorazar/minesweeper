@@ -39,7 +39,7 @@ A modern, feature-rich implementation of the classic Minesweeper game with speci
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/minesweeper-game.git
+git clone https://github.com/Dorazar/minesweeper-game.git
 ```
 
 2. Navigate to the project directory:
@@ -123,8 +123,8 @@ This project is part of Coding Academy coursework.
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@Dorazar](https://github.com/yourusername)
+DorAzar
+- GitHub: https://github.com/Dorazar
 
 ## 🙏 Acknowledgments
 
